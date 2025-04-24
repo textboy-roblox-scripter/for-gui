@@ -1,0 +1,72 @@
+-- Executor Script: Spawn Real Pets, Equip, and Simulate Trade
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local petFolder = ReplicatedStorage:WaitForChild("PetModels")  -- Folder with pet models (like shadow_dragon, bat_dragon, etc.)
+
+-- Check if the player has a character
+local function isPlayerReady()
+    return player and player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+end
+
+-- Function to spawn a pet from ReplicatedStorage
+local function spawnPet(petName)
+    -- Get the pet model from ReplicatedStorage
+    local petModel = petFolder:FindFirstChild(petName)
+    
+    if petModel and isPlayerReady() then
+        -- Clone the pet model and set its parent to workspace
+        local petClone = petModel:Clone()
+        petClone.Parent = workspace
+
+        -- Spawn the pet near the player
+        local character = player.Character
+        petClone:SetPrimaryPartCFrame(character.HumanoidRootPart.CFrame * CFrame.new(3, 0, 3))  -- Pet will spawn 3 studs in front of the player
+    else
+        print("Error: Pet model not found or player is not ready.")
+    end
+end
+
+-- Function to equip a pet
+local function equipPet(petName)
+    -- Set the equipped pet to the player's attribute (for tracking purposes)
+    player:SetAttribute("EquippedPet", petName)
+    print(player.Name .. " equipped " .. petName)
+    
+    -- Equip logic (this is a simplified version of the equip feature)
+    spawnPet(petName)  -- Spawn the pet when it’s equipped
+end
+
+-- Function to simulate a trade
+local function simulateTrade(petName)
+    -- This is just a mock of a trade. In the real *Adopt Me* game, trade logic is more complex.
+    print(player.Name .. " is attempting to trade " .. petName)
+
+    -- Example: You can trigger the game's trade system via player interactions
+    -- In real gameplay, this would be triggered via the actual Roblox trade system
+    -- Here we just simulate a trade process.
+end
+
+-- Triggering pet spawn and trade simulation for specific pets (you can modify this to spawn specific pets)
+local function triggerPetActions()
+    local pets = {
+        "shadow_dragon",  -- List of real pet models in the game
+        "bat_dragon",
+        "frost_dragon"
+    }
+
+    -- Choose a pet to spawn and trade
+    local selectedPet = pets[math.random(1, #pets)]  -- Randomly select a pet from the list
+    print("Selected pet: " .. selectedPet)
+
+    -- Spawn and equip the pet
+    spawnPet(selectedPet)
+    equipPet(selectedPet)
+
+    -- Simulate trade
+    simulateTrade(selectedPet)
+end
+
+-- Run the pet spawn and trade simulation
+triggerPetActions()
